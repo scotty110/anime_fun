@@ -82,6 +82,6 @@ class FrierenLLM(object):
 
 # Start Server
 logging.basicConfig()
-service = llm_twirp.GenTextServer(service=FrierenLLM())
+service = llm_twirp.GenBioServiceServer(service=FrierenLLM())
 app = TwirpASGIApp()
 app.add_service(service)

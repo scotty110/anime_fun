@@ -62,7 +62,7 @@ class FrierenDiffusion(object):
         self.model = DiffusionService()
         print('Loaded Model')
 
-    def GenBio(self, context, req) -> llm_pb2.AImage:
+    def GenCharacter(self, context, req) -> llm_pb2.AImage:
         s = self.model.generate(req.Text)
 
         r_obj = llm_pb2.AImage()
@@ -72,6 +72,6 @@ class FrierenDiffusion(object):
 
 # Start Server
 logging.basicConfig()
-service = llm_twirp.GenTextServer(service=FrierenDiffusion())
+service = llm_twirp.GenCharacterServiceServer(service=FrierenDiffusion())
 app = TwirpASGIApp()
 app.add_service(service)

@@ -46,7 +46,7 @@ func (s *FrierenAI) GenPlayingCard(ctx context.Context, req *pb.AText) (*pb.AIma
 func main() {
 	logger.Info("Starting AI Servers")
 	hooks := hooks.LoggingHooks(logger)
-	twirpHandler := pb.NewGenPlayingCardServiceServer(&FrierenAI{}, hooks)
+	twirpHandler := pb.NewFrierenAIServiceServer(&FrierenAI{}, hooks)
 	// Other services are python implementations and started seperatly 
 
 	mux := http.NewServeMux() //Can use any mux
