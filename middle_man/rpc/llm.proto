@@ -1,0 +1,24 @@
+syntax = "proto3";
+package twirp.server;
+option go_package = "./;FrierenAI";
+
+service GenPlayingCardService {
+    // This is the "main" orchistration (IE hub)
+    rpc GenPlayingCard(AText) returns (AImage);
+}
+
+service GenBioService {
+    rpc GenBio(AText) returns (AText); 
+}
+
+service GenCharacterService {
+    rpc GenCharacter(AText) returns (AImage);
+}
+
+message AText {
+    string Text = 1;
+}
+
+message AImage {
+    bytes Image = 1;
+}
