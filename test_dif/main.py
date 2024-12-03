@@ -36,7 +36,7 @@ class DiffusionModel():
 
         self.pipeline.enable_model_cpu_offload()
 
-    def generate(self, prompt) -> str:
+    def generate(self, prompt) -> bytes:
         prompt = f'An anime character in the style of Tatsuki Fujimoto with the following characteristics: {prompt}'
         img = self.pipeline(
             prompt=prompt,

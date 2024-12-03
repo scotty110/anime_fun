@@ -20,14 +20,10 @@ import llm_twirp
 '''
 Links:
     https://huggingface.co/blog/4bit-transformers-bitsandbytes
-
-    https://github.com/Dao-AILab/flash-attention
     https://huggingface.co/docs/transformers/perf_infer_gpu_one
 
-    https://github.com/scotty110/xyz_StableD/tree/master/stable_diffusion
-
+    https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct
 '''
-
 
 
 nf4_config = BitsAndBytesConfig(
