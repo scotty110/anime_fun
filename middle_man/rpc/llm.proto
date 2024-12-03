@@ -1,20 +1,24 @@
 syntax = "proto3";
 package twirp.server;
-option go_package = "./;FrierenAI";
+option go_package = "./;frierenai";
 
-service GenPlayingCardService {
-    // This is the "main" orchistration (IE hub)
+// Consolidated service that handles all orchestration
+service FrierenAIService {
+    // Main method to generate playing card with bio, image, and caption
     rpc GenPlayingCard(AText) returns (AImage);
 }
 
+// Service for generating bio text
 service GenBioService {
-    rpc GenBio(AText) returns (AText); 
+    rpc GenBio(AText) returns (AText);
 }
 
+// Service for generating character image
 service GenCharacterService {
     rpc GenCharacter(AText) returns (AImage);
 }
 
+// Service for captioning images
 service ImageCaptionService {
     rpc CaptionImage(ImageCaption) returns (AImage);
 }
