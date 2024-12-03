@@ -15,10 +15,19 @@ service GenCharacterService {
     rpc GenCharacter(AText) returns (AImage);
 }
 
+service ImageCaptionService {
+    rpc CaptionImage(ImageCaption) returns (AImage);
+}
+
 message AText {
     string Text = 1;
 }
 
 message AImage {
     bytes Image = 1;
+}
+
+message ImageCaption {
+    string Text = 1;
+    bytes Image = 2;
 }

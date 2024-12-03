@@ -14,21 +14,32 @@ var logger *zap.Logger = log.CreateLogger("info")
 
 type FrierenAI struct{}
 
-func (s *_____) _____(ctx context.Context, req *pb.AText) (*pb.AImage, error) {
-	client := pb.New____ProtobufClient("http://localhost:9001", &http.Client{})
-	resp, err := client.____(context.Background(), req)
-	if err == nil {
-		logger.Error("Error from AI model", zap.Error(err))
+func (s *FrierenAI) GenPlayingCard(ctx context.Context, req *pb.AText) (*pb.AImage, error) {
+	// Call to Create Bio
+	bio_client := pb.NewGenBioServiceProtobufClient("http://localhost:9001", &http.Client{})
+	bio, err := bio_client.GenBio(context.Background(), req)
+	if err != nil {
+		logger.Error("Error from Bio AI model", zap.Error(err))
 	}
+
+	// Call to Create Image
+	image_client := pb.NewGenCharacterServiceProtobufClient("http://localhost:9002", &http.Client{})
+	image, err := image_client.GenCharacter(context.Background(), bio)
+	if err != nil {
+		logger.Error("Error from Image AI model", zap.Error(err))
+	}
+
+	// Call to Caption Image
+
 	return resp, err
 }
 
 func main() {
 	//logger := log.CreateLogger("info")
 
-	logger.Info("Starting LLM Server")
+	logger.Info("Starting AI Servers")
 	hooks := hooks.LoggingHooks(logger)
-	twirpHandler := pb.New___Server(&FrierenAI{}, hooks)
+	twirpHandler := pb.NewGenPlayingCardServiceServer(&FrierenAI{}, hooks)
 
 	mux := http.NewServeMux() //Can use any mux
 	mux.Handle(twirpHandler.PathPrefix(), twirpHandler)
