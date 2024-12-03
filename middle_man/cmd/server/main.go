@@ -44,8 +44,6 @@ func (s *FrierenAI) GenPlayingCard(ctx context.Context, req *pb.AText) (*pb.AIma
 }
 
 func main() {
-	//logger := log.CreateLogger("info")
-
 	logger.Info("Starting AI Servers")
 	hooks := hooks.LoggingHooks(logger)
 	twirpHandler := pb.NewGenPlayingCardServiceServer(&FrierenAI{}, hooks)

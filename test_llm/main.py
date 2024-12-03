@@ -66,12 +66,5 @@ if __name__ == '__main__':
             break  # Exit the loop if the user enters 'exit'
     
         # Do something with the user input
-        #print(f'You entered: {user_input}')
         t = model.generate(user_input)
         print(f'Model Output: \n {t}')
-
-
-'''
-Generate a character in the style of Tatsuki Fujimoto based on the following description, giving the character a name if not provided: Girl with blond hair and blue eyes
-
-'''

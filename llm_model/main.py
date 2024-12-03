@@ -38,10 +38,9 @@ nf4_config = BitsAndBytesConfig(
 )
 
 
-class ChatLLM():
+class LLMService():
     def __init__(self):
         llm = 'meta-llama/Llama-3.2-3B-Instruct'
-        #llm = 'microsoft/Phi-3.5-mini-instruct'
         self.tokenizer = AutoTokenizer.from_pretrained( llm )
 
         self.model = AutoModelForCausalLM.from_pretrained( 
@@ -71,36 +70,22 @@ class ChatLLM():
         return sequences[0]['generated_text']
 
 
-class FrierenAI(object):
+class FrierenLLM(object):
     def __init__(self):
         print(torch.cuda.is_available())
-        self.model = ChatLLM()
+        self.model = LLMService()
         print('Loaded Model')
 
-    def LLMGenerator(self, context, req) -> llm_pb2.GeneratedText:
+    def GenBio(self, context, req) -> llm_pb2.AText:
         s = self.model.generate(req.Text)
 
-        r_obj = llm_pb2.GeneratedText()
+        r_obj = llm_pb2.AText()
         r_obj.Text = s
         return r_obj
 
-'''
-if __name__ == '__main__':
-    model = ChatLLM()
-    while True:
-        user_input = input("Please enter something (or 'exit' to quit): ")
-    
-        if user_input.lower() == 'exit':
-            break  # Exit the loop if the user enters 'exit'
-    
-        # Do something with the user input
-        t = model.generate(user_input)
-        print(f'Model Output: \n {t}')
-'''
 
-
-
+# Start Server
 logging.basicConfig()
-service = llm_twirp.GenTextServer(service=FrierenAI())
+service = llm_twirp.GenTextServer(service=FrierenLLM())
 app = TwirpASGIApp()
 app.add_service(service)
