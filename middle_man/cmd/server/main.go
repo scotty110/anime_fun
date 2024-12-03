@@ -30,8 +30,13 @@ func (s *FrierenAI) GenPlayingCard(ctx context.Context, req *pb.AText) (*pb.AIma
 	}
 
 	// Call to Caption Image
+	caption_client := pb.NewImageCaptionServiceProtobufClient("http://localhost:9003", &http.Client{})
+	card, err := caption_client.CaptionImage(context.Background(), TODO)
+	if err != nil {
+		logger.Error("Error from Image Caption service", zap.Error(err))
+	}
 
-	return resp, err
+	return card, err
 }
 
 func main() {
