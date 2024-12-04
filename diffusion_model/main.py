@@ -4,6 +4,7 @@ Setup an diffusion model behind a twirp server
 from diffusers import BitsAndBytesConfig, SD3Transformer2DModel
 from diffusers import StableDiffusion3Pipeline
 import torch
+import io
 
 # Twirp Stuff
 import asyncio
@@ -63,10 +64,13 @@ class FrierenDiffusion(object):
         print('Loaded Model')
 
     def GenCharacter(self, context, req) -> llm_pb2.AImage:
-        s = self.model.generate(req.Text)
+        img = self.model.generate(req.Text)
+        with io.BytesIO() as output:
+            img.save(output, format='PNG')
+            img_bytes = output.getvalue()
 
         r_obj = llm_pb2.AImage()
-        r_obj.Text = s #bytes???
+        r_obj.Image= img_bytes #bytes???
         return r_obj
 
 

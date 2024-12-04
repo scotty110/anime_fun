@@ -43,8 +43,8 @@ def caption_image(image_bytes, text, font_path="NotoSans.ttf"):
     current_line = words[0]
     for word in words[1:]:
         # Check if adding another word exceeds the image width
-        current_text_size = draw.textsize(current_line, font=font_body)[0]
-        next_word_size = draw.textsize(word, font=font_body)[0]
+        current_text_size = int(draw.textlength(current_line, font=font_body))
+        next_word_size = int(draw.textlength(word, font=font_body))
         
         if current_text_size + next_word_size + CAPTION_PADDING * 2 > original_width:
             lines.append(current_line)
@@ -87,7 +87,7 @@ class FrierenCaption(object):
         c_img = caption_image(req.Image, req.Text)
 
         r_obj = llm_pb2.AImage()
-        r_obj.Text = c_img 
+        r_obj.Image = c_img 
         return r_obj
 
 
