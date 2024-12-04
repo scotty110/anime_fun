@@ -33,8 +33,8 @@ To build the two binaries run `./build.sh` inside the middle_man folder.
 
 
 ## Running
-You will need 4 terminals (think of servers as being on seperate machines). 
-1. In each of `caption_image`, `diffusion_model` and `llm_model` run the provided `./run.sh` script. You should see some logging information appear (also the AI models will pull their respective weights if this is first time running).
+You will need 5 terminals (think of servers as being on seperate machines). 
+1. In each of `caption_image`, `diffusion_model` and `llm_model`, activate the `frieren` conda env (`conda activate frieren`) then run the provided `./run.sh` script. You should see some logging information appear (also the AI models will pull their respective weights if this is first time running).
 2. Run `server` in `middle_man/bin`. This starts the coordination server.
 3. Run `client` in `middle_man/bin`. This will prompt you for input. You can give a brief description of the character you would like to create. 
 
